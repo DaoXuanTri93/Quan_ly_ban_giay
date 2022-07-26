@@ -28,7 +28,7 @@
                             <a href="/login" class="text-success">Login</a>
                         </c:if>
                         <c:if test="${sessionScope.acc != null}">
-                        <span class="text-info">Hello, ${sessionScope['acc'].getEmail()}</span>
+                        <span class="text-info">Hello, ${sessionScope['acc'].getFullName()}</span>
                         <a href="/logout" class="text-danger">Logout</a></div>
                     </c:if>
                 </div>

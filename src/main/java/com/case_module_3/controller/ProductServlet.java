@@ -134,12 +134,16 @@ public class ProductServlet extends HttpServlet {
     private void listProduct(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int page = 1;
         int recordsPerPage = 6;
+        String q ="";
         if (req.getParameter("page") != null) {
             page = Integer.parseInt(req.getParameter("page"));
         }
+        if (req.getParameter("q") != null){
+            q = req.getParameter("q");
+        }
         Product lastProduct = productDAO.getLast();
         List<Category> listCategory = productDAO.getAllCategory();
-        List<Product> listP = productDAO.selecAllProduct((page - 1) * recordsPerPage, recordsPerPage);
+        List<Product> listP = productDAO.selecAllProduct((page - 1) * recordsPerPage, recordsPerPage,q);
         int noOfRecords = productDAO.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
         req.setAttribute("listP", listP);
@@ -147,6 +151,8 @@ public class ProductServlet extends HttpServlet {
         req.setAttribute("currentPage", page);
         req.setAttribute("lastP", lastProduct);
         req.setAttribute("listC", listCategory);
+        req.setAttribute("q",q);
+        System.out.println(q + "------- day la q");
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/products/products.jsp");
         requestDispatcher.forward(req, resp);
     }

@@ -100,20 +100,23 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void listNumberPage(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
-        System.out.println("numberPage");
         int page = 1;
         int recordsPerPage = 5;
+        String q = "";
+        if (req.getParameter("q") != null){
+            q = req.getParameter("q");
+        }
         if (req.getParameter("page") != null) {
             page = Integer.parseInt(req.getParameter("page"));
         }
-        List<Customer> customerList = customerDAO.getNumberPage((page - 1) * recordsPerPage, recordsPerPage);
+        List<Customer> customerList = customerDAO.getNumberPage((page - 1) * recordsPerPage, recordsPerPage,q);
         int noOfRecords = customerDAO.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
         req.setAttribute("listCustomer", customerList);
         req.setAttribute("noOfPages", noOfPages);
         req.setAttribute("currentPage", page);
-
+        req.setAttribute("q",q);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/admin/index.jsp");
         requestDispatcher.forward(req, resp);
@@ -340,12 +343,16 @@ public class CustomerServlet extends HttpServlet {
 //        req.setAttribute("listCustomer", customers);
         int page = 1;
         int recordsPerPage = 5;
+        String q = "";
+        if (req.getParameter("q") != null){
+            q = req.getParameter("q");
+        }
         if (req.getParameter("page") != null) {
             page = Integer.parseInt(req.getParameter("page"));
         }
         ;
 
-        List<Customer> customerList = customerDAO.getNumberPage((page - 1) * recordsPerPage, recordsPerPage);
+        List<Customer> customerList = customerDAO.getNumberPage((page - 1) * recordsPerPage, recordsPerPage,q);
         int noOfRecords = customerDAO.getNoOfRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
         System.out.println("noOfPages" + noOfPages);
@@ -353,6 +360,7 @@ public class CustomerServlet extends HttpServlet {
         req.setAttribute("listCustomer", customerList);
         req.setAttribute("noOfPages", noOfPages);
         req.setAttribute("currentPage", page);
+        req.setAttribute("q",q);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/admin/index.jsp");
         dispatcher.forward(req, resp);
     }

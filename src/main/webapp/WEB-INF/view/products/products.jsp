@@ -53,7 +53,22 @@
                     </div>
                 </div>
                 <div class="col-sm-9">
+                    <form action="/product?action=list&q=${q}" method="get">
+                        <div class="input-group col-md-4" style="
+                        margin-left: auto;
+                         margin-bottom: 10px;">
+                            <input type="text" class="form-control rounded" placeholder="Search..." aria-label="Search"
+                                   aria-describedby="search-addon" name="q" id="myInput" value="${q}" onkeyup="myFunction(a =${q})" />
+                            <input type="submit" class="btn btn-primary" value="search">
+                        </div>
+                    </form>
+                    <script>
+                        function myFunction(a){
+                            window.location.href="/product?action=list&q=" + a;
+                        }
+                    </script>
                     <a href="/product?action=create" class="btn btn-primary">ADD PRODUCT</a>
+
                     <div class="row">
                         <c:forEach items="${listP}" var="o">
                             <div class="col-12 col-md-6 col-lg-4">

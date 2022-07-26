@@ -97,14 +97,13 @@ public class CustomerDAO implements ICustomerDAO {
         return customer;
     }
 
-    @Override
-    public List<Customer> getNumberPage(int offset, int noOfRecords) throws ClassNotFoundException, SQLException {
-        Connection connection = connectionSQL.getConnection();
-        System.out.println("numberpage");
 
-        String query = "SELECT SQL_CALC_FOUND_ROWS * FROM customer limit " + offset + "," + noOfRecords;
+    public List<Customer> getNumberPage(int offset, int noOfRecords, String q) throws ClassNotFoundException, SQLException {
+        Connection connection = connectionSQL.getConnection();
+        String query = "SELECT SQL_CALC_FOUND_ROWS * FROM customer where fullname like ? limit " + offset + "," + noOfRecords;
         List<Customer> list = new ArrayList<>();
         ps = connection.prepareStatement(query);
+        ps.setString(1, "%" + q + "%");
         rs = ps.executeQuery();
         while (rs.next()) {
             Customer customer = new Customer();

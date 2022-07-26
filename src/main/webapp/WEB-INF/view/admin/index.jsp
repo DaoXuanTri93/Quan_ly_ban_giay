@@ -41,12 +41,12 @@
                 <div class="card-box">
                     <div class="table-responsive">
                         <h4 class="header-title mb-4"><a href="/customer" >List Customers</a></h4>
-                        <form action="search" method="post">
+                        <form method="get">
                             <div class="input-group col-md-4" style="
                         margin-left: auto;
                          margin-bottom: 10px;">
                                 <input type="text" class="form-control rounded" placeholder="Search..." aria-label="Search"
-                                       aria-describedby="search-addon" name="search" id="myInput" value="${searchValue}"/>
+                                       aria-describedby="search-addon" name="q" id="myInput" value="${q}"/>
                                 <input type="submit" class="btn btn-primary" value="search">
                             </div>
                         </form>

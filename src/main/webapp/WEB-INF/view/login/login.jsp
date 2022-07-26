@@ -23,7 +23,7 @@
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="https://doanhnhanplus.vn/wp-content/uploads/2018/12/adidas-ultra-boost-2019-0.jpg"
+                            <img src="https://hanoigolfshop.com/wp-content/uploads/2022/05/12869238571_590814931-e1645088989813.jpg"
                                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; max-width: 120%; height: 100%" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">

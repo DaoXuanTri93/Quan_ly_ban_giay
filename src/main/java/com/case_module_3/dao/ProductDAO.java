@@ -152,6 +152,33 @@ public class ProductDAO {
         return listP;
     }
 
+    public List<Product> selecAllProduct(int offset, int noOfRecords, String q) throws ClassNotFoundException, SQLException {
+        conn = connectionSQL.getConnection();
+        List<Product> listP = new ArrayList<>();
+            String query = "SELECT SQL_CALC_FOUND_ROWS * FROM product where title like ? limit " + offset + "," + noOfRecords;
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + q + "%");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Product product = new Product();
+            product.setIdProduct(rs.getInt("idProduct"));
+            product.setTitle(rs.getString("title"));
+            product.setPrice(rs.getDouble("price"));
+            product.setQuantity(rs.getInt("quantity"));
+            product.setImage(rs.getString("image"));
+            product.setIdCategory(rs.getInt("idCategory"));
+            product.setDescription(rs.getString("description"));
+            listP.add(product);
+
+        }
+        rs = ps.executeQuery("SELECT FOUND_ROWS()");
+        if (rs.next()) {
+            this.noOfRecords = rs.getInt(1);
+        }
+        conn.close();
+        return listP;
+    }
+
     public int getNoOfRecords() {
         return noOfRecords;
     }
@@ -202,9 +229,11 @@ public class ProductDAO {
         String query = "DELETE FROM product WHERE idProduct = ?";
         conn = connectionSQL.getConnection();
         ps = conn.prepareStatement(query);
-        ps.setInt(1,id);
+        ps.setInt(1, id);
         flag = ps.executeUpdate() > 0;
         conn.close();
         return flag;
     }
+
+
 }
